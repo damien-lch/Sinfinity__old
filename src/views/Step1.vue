@@ -1,39 +1,26 @@
 <template>
-  <div>
-    <h1>Import your file</h1>
-    <div>
-      <button
-        type="button"
-        class="
-          inline-flex
-          items-center
-          px-6
-          py-3
-          border border-transparent
-          text-base
-          font-medium
-          rounded-full
-          shadow-sm
-          text-white
-          bg-indigo-600
-          hover:bg-indigo-700
-          focus:outline-none
-          focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-        "
-        @click="openUploader()"
-      >
-        Choose history file !
-      </button>
-      <input
-        class="hidden"
-        type="file"
-        ref="fileUploader"
-        @change="(e) => processFile(e)"
-      />
-    </div>
-    <div>
-      {{ nodes }}
-    </div>
+  <h1>Import your file</h1>
+  <p>
+    This is the first step, please upload your sinovate's history file. If you
+    don't know how to do this :
+  </p>
+  <ul>
+    <li>Open your wallet</li>
+    <li>Go to the history tab (5th tab from the top)</li>
+    <li>Click on export and choose a location</li>
+  </ul>
+  <Disclamer class="my-4" />
+  <div class="flex justify-center my-10">
+    <Button :isLoading="loadingFile" @clicked="openUploader()">
+      Choose your history file
+      <UploadIcon class="text-white h-5 w-5" />
+    </Button>
+    <input
+      class="hidden"
+      type="file"
+      ref="fileUploader"
+      @change="(e) => processFile(e)"
+    />
   </div>
 </template>
 
@@ -42,11 +29,12 @@ import { ref, inject, computed } from "vue";
 import Papa from "papaparse";
 import findInfinitynodes from "../helpers/findInfinitynodes";
 import router from "../router/index";
+import { UploadIcon } from "@heroicons/vue/solid";
 const fileUploader = ref(null);
 const result = ref();
 const history = ref([]);
 const nodesStore = inject("nodesStore");
-
+const loadingFile = ref(false);
 const nodes = computed(() => {
   return nodesStore.state.nodes;
 });
@@ -54,6 +42,7 @@ const openUploader = () => {
   fileUploader.value.click();
 };
 const processFile = (e) => {
+  loadingFile.value = true;
   const file = e.target.files[0];
   Papa.parse(file, {
     complete: (resp) => {
@@ -72,7 +61,10 @@ const processFile = (e) => {
           history.value.push(historyLine);
         });
         nodesStore.addNodes(findInfinitynodes(history.value));
-        router.push("/step2");
+        setTimeout(() => {
+          loadingFile.value = false;
+          router.push("/step2");
+        }, 1000);
       }
     },
   });
