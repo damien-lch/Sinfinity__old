@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { inject } from "vue"
 import Home from '/src/views/Home.vue'
-import step1 from '/src/views/Step1.vue'
-import step2 from '/src/views/Step2.vue'
-import step3 from '/src/views/Step3.vue'
+import Decoder from '/src/views/Decoder.vue'
+import Step1 from '/src/views/Step1.vue'
+import Step2 from '/src/views/Step2.vue'
 
 import nodesStore from "../stores/infinitynodes"
 
@@ -14,34 +14,30 @@ const routes = [
         component: Home,
     },
     {
-        path: '/step1',
-        name: 'Step1',
-        component: step1,
-    },
-    {
-        path: '/step2',
-        name: 'Step2',
-        component: step2,
-        beforeEnter: (to, from, next) => {
-            if (nodesStore.state.nodes.length === 0) {
-                next('/step1')
-            } else {
-                next()
-            }
-        }
-    },
-    {
-        path: '/step3',
-        name: 'Step3',
-        component: step3,
-        beforeEnter: (to, from, next) => {
-            if (nodesStore.state.nodes.length === 0) {
-                next('/step1')
-            } else {
-                next()
-            }
-        }
-    },
+        path: '/decoder',
+        name: 'Decoder',
+        component: Decoder,
+        children: [
+            {
+                path: 'step1',
+                name: 'Step1',
+                component: Step1
+            },
+            {
+                path: 'step2',
+                name: 'Step2',
+                component: Step2,
+                beforeEnter: (to, from, next) => {
+                    if (nodesStore.state.nodes.length === 0) {
+                        next('/decoder/step1')
+                    } else {
+                        next()
+                    }
+                }
+            },
+
+        ]
+    }
 ]
 const router = createRouter({
     history: createWebHistory(),

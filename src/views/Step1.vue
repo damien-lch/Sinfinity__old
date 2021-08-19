@@ -11,16 +11,7 @@
   </ul>
   <Disclamer class="my-4" />
   <div class="flex justify-center my-10">
-    <Button :isLoading="loadingFile" @clicked="openUploader()">
-      Choose your history file
-      <UploadIcon class="text-white h-5 w-5" />
-    </Button>
-    <input
-      class="hidden"
-      type="file"
-      ref="fileUploader"
-      @change="(e) => processFile(e)"
-    />
+    <FileUploader @file-uploaded="(e) => processFile(e)" />
   </div>
 </template>
 
@@ -29,21 +20,15 @@ import { ref, inject, computed } from "vue";
 import Papa from "papaparse";
 import findInfinitynodes from "../helpers/findInfinitynodes";
 import router from "../router/index";
-import { UploadIcon } from "@heroicons/vue/solid";
-const fileUploader = ref(null);
 const result = ref();
 const history = ref([]);
 const nodesStore = inject("nodesStore");
-const loadingFile = ref(false);
+
 const nodes = computed(() => {
   return nodesStore.state.nodes;
 });
-const openUploader = () => {
-  fileUploader.value.click();
-};
-const processFile = (e) => {
-  loadingFile.value = true;
-  const file = e.target.files[0];
+
+const processFile = (file) => {
   Papa.parse(file, {
     complete: (resp) => {
       if (resp.data) {
@@ -62,8 +47,7 @@ const processFile = (e) => {
         });
         nodesStore.addNodes(findInfinitynodes(history.value));
         setTimeout(() => {
-          loadingFile.value = false;
-          router.push("/step2");
+          router.push({ name: "Step2" });
         }, 1000);
       }
     },

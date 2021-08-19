@@ -46,6 +46,11 @@
   resolved "https://registry.yarnpkg.com/@heroicons/vue/-/vue-1.0.4.tgz#dcfd957a9abc827321054e643f6fb73629b3eef6"
   integrity sha512-jm7JMoUGr7Asn07oYNmewxkdQALnskTzRo17iGpHG/apLcc+GFdvdN4XvWZ2awStodaqeZ4eYWg7UcI0LvLETQ==
 
+"@j-t-mcc/vue3-chartjs@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@j-t-mcc/vue3-chartjs/-/vue3-chartjs-1.1.4.tgz#f1910b61487886ef927eaed1ddf77809f5c80d2f"
+  integrity sha512-DaMbonZp+lkUm+xe9xoRyvDJhXUKYMIpax937nzq+isUmRy3iIy6QeyYZV2Rd+T63ePRUJs2xxHSPMnmZDUduw==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -306,6 +311,11 @@ chalk@^4.1.1:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+chart.js@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.5.1.tgz#73e24d23a4134a70ccdb5e79a917f156b6f3644a"
+  integrity sha512-m5kzt72I1WQ9LILwQC4syla/LD/N413RYv2Dx2nnTkRS9iv/ey1xLTt0DnPc/eWV4zI+BgEgDYBIzbQhZHc/PQ==
 
 "chokidar@>=3.0.0 <4.0.0", chokidar@^3.5.2:
   version "3.5.2"

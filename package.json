@@ -9,6 +9,8 @@
   "dependencies": {
     "@headlessui/vue": "^1.4.0",
     "@heroicons/vue": "^1.0.4",
+    "@j-t-mcc/vue3-chartjs": "^1.1.4",
+    "chart.js": "^3.5.1",
     "papaparse": "^5.3.1",
     "sass": "^1.38.0",
     "vite-plugin-components": "^0.13.2",

@@ -13,13 +13,13 @@ const findInfinitynodes = (history) => {
                         type: rewardsPossibles.indexOf(line.amount) === 0 ? 'Mini' :
                             rewardsPossibles.indexOf(line.amount) === 1 ? 'Mid' :
                                 rewardsPossibles.indexOf(line.amount) === 2 ? 'Big' : '',
-                        history: [{ id: line.id, type: line.type, label: line.label }]
+                        history: [line]
                     }
                 )
             } else {
                 infinityNodes.forEach(node => {
                     if (node.address === line.address) {
-                        node.history.push({ id: line.id, type: line.type, label: line.label })
+                        node.history.push(line)
                     }
                 })
             }
