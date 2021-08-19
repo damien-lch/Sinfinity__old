@@ -1,5 +1,4 @@
 <template>
-  {{ nodes.map((n) => n.selected) }}
   <fieldset class="space-y-5">
     <div
       class="relative flex items-start"
@@ -36,6 +35,7 @@
 import { inject, computed, ref, watch, reactive } from "vue";
 const nodesStore = inject("nodesStore");
 const nodes = ref([]);
+const emits = defineEmits(["nodes-updated"]);
 nodesStore.state.nodes.forEach((node) => {
   nodes.value.push({
     ...node,
@@ -50,7 +50,9 @@ const addressPrettier = (address) => {
 };
 watch(
   () => nodes,
-  (state, prevState) => {},
+  (nodes, prevState) => {
+    emits("nodes-updated", nodes.value);
+  },
   { deep: true }
 );
 </script>

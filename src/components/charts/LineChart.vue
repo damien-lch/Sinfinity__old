@@ -1,6 +1,6 @@
 <template>
   <div
-    style="height: 400px; width: 600px; display: flex; flex-direction: column"
+    style="height: 600px; width: 600px; display: flex; flex-direction: column"
   >
     <vue3-chart-js
       ref="chartRef"
@@ -29,7 +29,7 @@ const datasets = computed(() => {
 
 const doughnutChart = reactive({
   id: "doughnut",
-  type: "bar",
+  type: "line",
   data: {
     labels: labels.value,
     datasets: datasets.value,
