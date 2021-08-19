@@ -5,17 +5,19 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
           <div class="flex-shrink-0">
-            <img
-              class="h-8 w-8"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg"
-              alt="Workflow"
-            />
+            <router-link to="/">
+              <img
+                class="h-8 w-8"
+                src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg"
+                alt="Workflow"
+              />
+            </router-link>
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <template v-for="item in navigation" :key="item">
-                <a
-                  href="#"
+                <router-link
+                  :to="{ name: item.to }"
                   class="
                     text-white
                     hover:bg-indigo-500 hover:bg-opacity-75
@@ -25,8 +27,9 @@
                     text-sm
                     font-medium
                   "
-                  >{{ item }}</a
-                >
+                  :class="isActiveRoute(item.to) ? 'bg-green-400' : ''"
+                  >{{ item.label }}
+                </router-link>
               </template>
               <a
                 href="https://sinovate.io"
@@ -164,7 +167,20 @@ import {
 } from "@headlessui/vue";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/vue/outline";
 import { GlobeAltIcon } from "@heroicons/vue/solid";
-const navigation = ["About", "App"];
+import { computed } from "@vue/reactivity";
+import router from "./router/index";
+const navigation = [{ label: "Decoder", to: "Step1" }];
+const currentRouteName = computed(() => {
+  console.log(router.currentRoute.value);
+  return router.currentRoute.value.name;
+});
+const isActiveRoute = (routeName) => {
+  const matched = router.currentRoute.value.matched.map((m) => m.name);
+  if (matched.includes(routeName)) {
+    return true;
+  }
+  return false;
+};
 </script>
 
 <style>
